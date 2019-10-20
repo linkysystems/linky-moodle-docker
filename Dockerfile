@@ -26,6 +26,13 @@ RUN docker-php-ext-configure zip && \
 # Op cache for speed up php processing:
 RUN docker-php-ext-configure opcache --enable-opcache \
     && docker-php-ext-install opcache
+# MongoDB extension for cache storage:
+RUN pecl install mongodb \
+    && echo "extension=mongodb.so" > /usr/local/etc/php/conf.d/ext-mongodb.ini
+# Redis extension for cache storage:
+RUN pecl install -o -f redis \
+    && rm -rf /tmp/pear \
+    &&  echo "extension=redis.so" > /usr/local/etc/php/conf.d/redis.ini
 
 ENV DATABASE_TYPE="mysqli" \
     MYSQL_DATABASE="project" \
@@ -54,7 +61,7 @@ ENV DATABASE_TYPE="mysqli" \
     SMTP_PROTOCOL="" \
     SMTP_USER=""
 
-COPY configs/opcache.ini $PHP_INI_DIR/conf.d/
+COPY configs/php/* $PHP_INI_DIR/conf.d/
 COPY scripts /scripts
 
 RUN chmod +x /scripts/*

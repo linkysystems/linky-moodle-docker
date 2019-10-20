@@ -3,7 +3,9 @@
 set -e
 
 # 1- Check internet connection:
-php /var/www/html/scripts/check-db-connection.php
+php /scripts/check-db-connection.php
+
+echo 'Starting basic configuration'
 
 # 2- Run moodle installer:
 CMD_CONFIGURATION="php /var/www/html/admin/cli/install.php \
@@ -27,6 +29,10 @@ CMD_CONFIGURATION="php /var/www/html/admin/cli/install.php \
 
 echo $($CMD_CONFIGURATION)
 
+echo 'Done basic configuration'
+
+echo 'Starting DB install'
+
 CMD_INSTALL_DB="php /var/www/html/admin/cli/install_database.php \
   --lang=${MOODLE_LANGUAGE} \
   --agree-license \
@@ -38,5 +44,7 @@ CMD_INSTALL_DB="php /var/www/html/admin/cli/install_database.php \
   --summary=${MOODLE_SUMMARY}"
 
 echo $($CMD_INSTALL_DB)
+
+echo 'Done DB install'
 
 exec "$@"

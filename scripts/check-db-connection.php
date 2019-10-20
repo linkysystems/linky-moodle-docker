@@ -28,7 +28,7 @@ do {
 // Check connection
 if (!$isConnected) {
   printf("Cant connect to database:%s\n", $conn->connect_error);
-  exit(1);
+  throw new Exception('Connection error');
 }
 
 printf("Connected successfully \n");
@@ -46,7 +46,5 @@ if ($row === NULL) {
 
 $query->close();
 $conn->close();
-
-exit(0);
 
 ?>
