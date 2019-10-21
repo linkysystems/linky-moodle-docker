@@ -46,5 +46,6 @@ CMD_INSTALL_DB="php /var/www/html/admin/cli/install_database.php \
 echo $($CMD_INSTALL_DB)
 
 echo 'Done DB install'
+echo 'Done start settup'
 
 exec "$@"
