@@ -64,7 +64,6 @@ ENV DATABASE_TYPE="mysqli" \
 COPY configs/php/* $PHP_INI_DIR/conf.d/
 COPY configs/apache-sites-avaible/* /etc/apache2/sites-available/
 
-ServerAlias *
 COPY scripts /scripts
 
 RUN chmod +x /scripts/*
