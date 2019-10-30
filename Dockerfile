@@ -7,6 +7,8 @@ RUN apt-get update &&  \
     apt-get install -y \
       libicu-dev \
       openssl \
+      libcurl4-openssl-dev \
+      libssl-dev \
       libxml2-dev \
       libzip-dev \
       zlib1g-dev \
@@ -27,7 +29,7 @@ RUN docker-php-ext-configure zip && \
 RUN docker-php-ext-configure opcache --enable-opcache \
     && docker-php-ext-install opcache
 # MongoDB extension for cache storage:
-RUN pecl install mongodb \
+RUN pecl install mongodb --enable-ssl \
     && echo "extension=mongodb.so" > /usr/local/etc/php/conf.d/ext-mongodb.ini
 # Redis extension for cache storage:
 RUN pecl install -o -f redis \
