@@ -13,6 +13,8 @@ RUN apt-get update &&  \
       libzip-dev \
       zlib1g-dev \
       libpng-dev \
+      libjpeg-dev \
+      libfreetype6-dev \
       zip
 
 RUN docker-php-ext-configure intl && \
@@ -22,8 +24,12 @@ RUN docker-php-ext-configure zip && \
   docker-php-ext-install mysqli && \
   docker-php-ext-install soap && \
   docker-php-ext-install zip && \
-  docker-php-ext-install gd && \
   docker-php-ext-install xmlrpc
+
+RUN docker-php-ext-configure gd \
+    --with-freetype-dir=/usr/include/ \
+    --with-jpeg-dir=/usr/include/ \
+    && docker-php-ext-install gd
 
 # Op cache for speed up php processing:
 RUN docker-php-ext-configure opcache --enable-opcache \
