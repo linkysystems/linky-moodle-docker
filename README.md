@@ -20,11 +20,11 @@ docker build -t linky-moodle .
 ## Tag and save in docker registry:
 
 ```
-docker tag linky-moodle:latest linky-moodle/linky-moodle:v1.0.1
+docker tag linky-moodle:latest edulinky/linky-moodle:v1.0.4
 ```
 
 ```
-docker push linky-moodle/linky-moodle:v1.0.1
+docker push edulinky/linky-moodle:v1.0.4
 ```
 
 
