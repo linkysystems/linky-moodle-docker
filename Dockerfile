@@ -15,7 +15,13 @@ RUN apt-get update &&  \
       libpng-dev \
       libjpeg-dev \
       libfreetype6-dev \
-      zip
+      zip \
+      graphviz \
+      libpspell-dev \
+      aspell \
+      ghostscript \
+      libldb-dev \
+      libldap2-dev
 
 RUN docker-php-ext-configure intl && \
   docker-php-ext-install intl
@@ -24,7 +30,12 @@ RUN docker-php-ext-configure zip && \
   docker-php-ext-install mysqli && \
   docker-php-ext-install soap && \
   docker-php-ext-install zip && \
-  docker-php-ext-install xmlrpc
+  docker-php-ext-install xml && \
+  docker-php-ext-install xmlrpc && \
+  docker-php-ext-install curl && \
+  docker-php-ext-install pspell && \
+  docker-php-ext-install mbstring && \
+  docker-php-ext-install ldap
 
 RUN docker-php-ext-configure gd \
     --with-freetype-dir=/usr/include/ \
@@ -34,9 +45,6 @@ RUN docker-php-ext-configure gd \
 # Op cache for speed up php processing:
 RUN docker-php-ext-configure opcache --enable-opcache \
     && docker-php-ext-install opcache
-# MongoDB extension for cache storage:
-RUN pecl install mongodb --enable-ssl \
-    && echo "extension=mongodb.so" > /usr/local/etc/php/conf.d/ext-mongodb.ini
 # Redis extension for cache storage:
 RUN pecl install -o -f redis \
     && rm -rf /tmp/pear \
