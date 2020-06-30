@@ -46,6 +46,11 @@ CMD_INSTALL_DB="php /var/www/html/admin/cli/install_database.php \
 echo $($CMD_INSTALL_DB)
 
 echo 'Done DB install'
-echo 'Done start settup'
+
+echo 'Starting files permissions fix'
+chown 33:33 /var/moodledata /var/moodledata/*
+echo 'Done files permissions fix'
+
+echo 'Done start setup'
 
 exec "$@"
